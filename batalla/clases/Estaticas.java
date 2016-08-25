@@ -17,24 +17,27 @@ public class Estaticas {
         }
         return cabecera;
     }
-    public static boolean controlaIngresoRepetido(int n, String d1, int d2, Nave[] nn){
+
+    public static int ContrDisparo(int dis){
+        if (dis%2==0){
+            return 2;
+        }else{
+            return 1;
+        }
+    }
+    public static boolean controlaIngresoRepetido(int cd, int n, String d1, int d2, Nave[] nn){
         for (int i = (n-1); i >=0 ; i--) {
             Block bnew = new Block(d1,d2);
-            Block b1=new Block();Block b2=new Block();
-            b1=nn[i].getDim1(); b2=nn[i].getDim2();
-            if (bnew.equals(b1)||bnew.equals(b2)){
-                System.out.println(n + " "+ b1 + " "+b2);
+            Block b=new Block();
+
+            if (cd==1){
+                b=nn[i].getDim1();
+            }else{
+                b=nn[i].getDim2();
+            }
+            if (bnew.equals(b)){
                 return true;
             }
-        }
-        return false;
-    }
-
-
-    public static boolean controlaIngRepetidos(Block n, Block b1, Block b2){
-        if (n.equals(b1)||n.equals(b2)){
-            System.out.println(n + " "+ b1 + " "+b2);
-           return true;
         }
         return false;
     }
