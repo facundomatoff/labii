@@ -3,12 +3,13 @@ import java.util.Scanner;
 import static jdk.nashorn.internal.objects.NativeString.toUpperCase;
 
 /**
- * Created by romina on 20/08/16.
+ * Created by romina brutti on 20/08/16.
  */
 
 public class Main {
 
     private static int n;
+    private static int m=10;
     private static int tablero[][];
     private static String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static String linea = System.getProperty("line.separator");
@@ -16,6 +17,7 @@ public class Main {
     public static void main (String[]args){
 
         Scanner sc = new Scanner(System.in);
+
         int controlBarcos[];
         int contBarcos;
         int cont = 0;
@@ -27,12 +29,12 @@ public class Main {
 
         do{
 
-            System.out.println("Ingrese cantidad de barcos. (Entre 4 y 10)");
+            System.out.println("Ingrese cantidad de barcos. (Entre 3 y 10)");
             n = sc.nextInt();
 
-        }while(n<4 || n>10);
+        }while(n<3 || n>10);
 
-        tablero = new int[n][n];             //asigna tamaño del tablero de acuerdo a la cantidad de barcos elegida
+        tablero = new int[m][m];             //asigna tamaño del tablero de acuerdo a la cantidad de barcos elegida
         controlBarcos = new int[n+1];        //arreglo q lleva el control de barcos encontrados
         contBarcos = 1;                     //cuenta el nro de cada barco
         contInverso = n;                       //cuenta el numero de barcos restantes
@@ -47,12 +49,12 @@ public class Main {
 
             do {
                 do {
-                    if (posI1 >= n || posJ1 >= n || posI1 < 0) System.out.println("No existe coordenada.");
-                    System.out.println("Ingrese 1° coordenada del barco (Nro Letra): ");
-                    posI1 = sc.nextInt() - 1;
+                    if (posI1 >= m || posJ1 >= m || posI1 < 0) System.out.println("No existe coordenada.");
+                    System.out.println("Ingrese 1° coordenada del barco (Letra Nro): ");
                     posJ1 = abc.indexOf(toUpperCase(sc.next()));
+                    posI1 = sc.nextInt() - 1;
 
-                } while (posI1 >= n || posJ1 >= n || posI1 < 0);
+                } while (posI1 >= m || posJ1 >= m || posI1 < 0);
 
                 if(tablero[posI1][posJ1]!=0) System.out.println("Coordenada ocupada!!");           //unicamente se puede asigar si es = 0 (agua)
 
@@ -63,12 +65,12 @@ public class Main {
             do {
                 do {
 
-                    if (posI2 >= n || posJ2 >= n || posI2 < 0) System.out.println("No existe coordenada.");
+                    if (posI2 >= m || posJ2 >= m || posI2 < 0) System.out.println("No existe coordenada.");
                     System.out.println("Ingrese 2° coordenada del barco (Nro Letra): ");
-                    posI2 = sc.nextInt() - 1;
                     posJ2 = abc.indexOf(toUpperCase(sc.next()));
+                    posI2 = sc.nextInt() - 1;
 
-                } while (posI2 >= n || posJ2 >= n || posI2 < 0);
+                } while (posI2 >= m || posJ2 >= m || posI2 < 0);
 
                 if(tablero[posI2][posJ2]!=0) System.out.println("Coordenada ocupada!!");
                 else {
@@ -108,12 +110,12 @@ public class Main {
 
             do{
 
-                if (posI1 >= n || posJ1 >= n || posI1 < 0) System.out.println("No existe coordenada.");
-                System.out.println("Ingrese coordenada a hundir: (Nro Letra)");
-                posI1 = sc.nextInt() - 1;
+                if (posI1 >= m || posJ1 >= m || posI1 < 0) System.out.println("No existe coordenada.");
+                System.out.println("Ingrese coordenada a hundir: (Letra Nro)");
                 posJ1 = abc.indexOf(toUpperCase(sc.next()));
+                posI1 = sc.nextInt() - 1;
 
-            }while (posI1 >= n || posJ1 >= n || posI1 < 0);
+            }while (posI1 >= m || posJ1 >= m || posI1 < 0);
 
             if(tablero[posI1][posJ1]==0) {
                 System.out.println("AGUA!!");
@@ -162,18 +164,18 @@ public class Main {
 
     public static void imprimirTablero(){
         System.out.print(linea+"   |");
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < m; i++) {
             System.out.print(" "+abc.charAt(i)+" |");
         }
 
         System.out.println(" ");
 
-        for (int i = 0; i < n ; i++) {
+        for (int i = 0; i < m ; i++) {
 
-            if(i<9) System.out.print(" "+(i+1)+" |");               //esta condicion es para que no se deforme el tablero si llega a 10
+            if(i<9) System.out.print(" "+(i+1)+" |");
             else System.out.print((i+1)+" |");
 
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < m; j++) {
                 if(tablero[i][j]>0) System.out.print(" O |");
                 else if(tablero[i][j]==0) System.out.print(" ~ |");
                 else if(tablero[i][j]==-1) System.out.print(" X |");
