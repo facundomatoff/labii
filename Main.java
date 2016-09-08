@@ -425,7 +425,8 @@ public class Main {
 					&& letra != 'g' && letra != 'h' && letra != 'i' && letra != 'j') {
 				System.out.println("Error : letra invalida.");
 				while (letraDisparoIncorrectaJ1) {
-					System.out.println("Introduzca la letra de nuevo: ");
+					System.out.println("Introduzca la letra y el numero de nuevo: ");
+					sc.nextLine();
 					letra = sc.next().toLowerCase().charAt(0);
 					if (letra == 'a' || letra == 'b' || letra == 'c' || letra == 'd' || letra == 'e' || letra == 'f'
 							|| letra == 'g' || letra == 'h' || letra == 'i' || letra == 'j') {
@@ -517,7 +518,8 @@ public class Main {
 					&& letra2 != 'g' && letra2 != 'h' && letra2 != 'i' && letra2 != 'j') {
 				System.out.println("Error : letra invalida.");
 				while (letraDisparoIncorrectaJ2) {
-					System.out.println("Introduzca la letra de nuevo: ");
+					System.out.println("Introduzca la letra y el numero de nuevo: ");
+					sc.nextLine();
 					letra2 = sc.next().toLowerCase().charAt(0);
 					if (letra2 == 'a' || letra2 == 'b' || letra2 == 'c' || letra2 == 'd' || letra2 == 'e'
 							|| letra2 == 'f' || letra2 == 'g' || letra2 == 'h' || letra2 == 'i' || letra2 == 'j') {
