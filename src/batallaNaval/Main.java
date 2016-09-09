@@ -21,29 +21,22 @@ public class Main {
 
     }
 
-    /*
-    5
-    1
-    D
-    1
-    E
-    4
-    C
-    4
-    D
-     */
-
     public static void jugar(){
 
         boolean fin = false;
 
-        while(fin == false){
+        System.out.println("Todo Listo a Jugar");
+
+        int casillas = 0;
+
+        while(casillas != 4){
 
             System.out.println("Fila: ");
-            System.out.println("Columna: ");
+            int fila = sc.nextInt()-1;
 
-            int fila = sc.nextInt();
+            System.out.println("Columna: ");
             String col = sc.next();
+
             int colum = 0;
 
             for (int j = 0; j < tablero.length; j++) {
@@ -51,6 +44,8 @@ public class Main {
                 if (col.charAt(0) == (char) ('A' + j)) {
 
                     colum = j;
+                    System.out.println("Columna: " + colum);
+
                     break;
 
                 }
@@ -61,6 +56,7 @@ public class Main {
                 System.out.println("Genial le diste");
                 tablero[fila][colum] = 8;
                 dibujartablero();
+                casillas++;
 
             }else{
 
@@ -68,24 +64,23 @@ public class Main {
 
             }
 
-            fin = true;
 
         }
 
+        System.out.println("Game Over");
     }
 
     public static void iniciar(){
 
+        System.out.println("Ingrese el Tamano del tablero, Ej: 5");
+
         int tam = sc.nextInt();
         tablero = new int[tam][tam];
+
+        System.out.println(tablero.length);
     }
+
     public static void dibujartablero(){
-
-        //if (iniciado) {
-
-
-
-        //}
 
         System.out.print("--");
 
@@ -94,11 +89,11 @@ public class Main {
             System.out.print((char) ('A' + i) + "-");
         }
 
-        System.out.println();
+            System.out.println();
 
-        for (int i = 1; i < tablero.length; i++) {
+        for (int i = 0; i < tablero.length; i++) {
 
-            System.out.print(i + "-");
+            System.out.print(i+1 + "-");
 
             for (int j = 0; j < tablero.length; j++) {
 
@@ -114,33 +109,65 @@ public class Main {
 
     public static void marcar(){
 
-        for (int i = 0; i < 2; i++) {
+        System.out.println("Marques sus Casilleros");
 
-            System.out.println("Fila: ");
-            System.out.println("Columna: ");
+        int casillas = 0;
 
-            int fila = sc.nextInt();
-            String col = sc.next();
+        while(casillas!= 2 ) {
 
-            int colum = 0;
-            //char valor;
+                System.out.println("1 - Vertical u 2 - Horizontal");
+                int op = sc.nextInt();
 
-            for (int j = 0; j < tablero.length; j++) {
+                System.out.println("Fila, debe ser mayor a 0: ");
+                int fila = sc.nextInt() - 1;
 
-                //valor = ((char) ('A' + j));
-                //System.out.println(col.charAt(0) + " " + valor);
+                System.out.println("Columna: ");
+                String col = sc.next();
 
-                if (col.charAt(0) == (char) ('A' + j)) {
+                int colum = 0;
 
-                    colum = j;
-                    break;
+                for (int j = 0; j < tablero.length; j++) {
+
+                    if (col.charAt(0) == (char) ('A' + j)) {
+
+                        colum = j;
+                        break;
+
+                    }
+
+                }
+
+
+            if (fila >= 0 && fila < tablero.length) {
+
+                if (tablero[fila][colum] == 0) {
+
+                    if (op == 2 ) {
+
+                        tablero[fila][colum] = 1;
+                        tablero[fila][colum+1] = 1;
+                        dibujartablero();
+                        System.out.println("Siguiente: ");
+
+                    }else{
+
+                        tablero[fila][colum] = 1;
+                        tablero[fila+1][colum] = 1;
+                        dibujartablero();
+                        System.out.println("Siguiente: ");
+
+                    }
+
+
+                    casillas++;
+
+                } else {
+
+                    System.out.println("Este Casillero ya se Encuentra Marcado, seleccione otro");
 
                 }
 
             }
-
-            tablero[fila][colum] = 1;
-            dibujartablero();
 
         }
 
