@@ -1,8 +1,11 @@
 package org.utn.labii.oop.test;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
+
 /**
  * Created by nico on 9/13/16.
  */
@@ -10,9 +13,14 @@ import org.utn.labii.oop.Circle;
 
 public class CircleTest {
 
-    Circle circle = new Circle();
-    Circle circle2 = new Circle(5.0);
+    private Circle circle;
+    private Circle circle2;
 
+    @Before
+    public void setUp(){
+        circle = new Circle();
+        circle2 = new Circle(5.0);
+    }
     @Test
     public void getRadius() throws Exception {
         assertThat(
@@ -82,7 +90,7 @@ public class CircleTest {
     }
 
     @Test
-    public void toStringOutput() throws Exception {
+    public void toString_() throws Exception {
         assertThat(
                 circle.toString(),
                 is(

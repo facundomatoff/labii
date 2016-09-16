@@ -19,7 +19,7 @@ public class Circle {
 
     /**
      *
-     * @return the radius o the circle
+     * @return the radius of circle
      */
     public double getRadius() {
         return this.radius;
@@ -35,16 +35,30 @@ public class Circle {
         this.radius = radius;
     }
 
+    /**
+     *
+     * @return the area of circle whit 2 signifan signatures
+     */
     public double getArea(){
         double area = (Math.PI * Math.pow(this.radius, 2));
         return roundWithSigFig(area, 2);
     }
 
+    /**
+     *
+     * @return
+     */
     public double getCircunference(){
         double circunference = (2 * Math.PI * this.radius);
         return roundWithSigFig(circunference, 2);
     }
 
+    /**
+     *
+     * @param value
+     * @param places
+     * @return
+     */
     private static double roundWithSigFig(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
         BigDecimal bd = new BigDecimal(value);
@@ -52,6 +66,10 @@ public class Circle {
         return bd.doubleValue();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return String.format("Circle[radius=%.1f]", getRadius());
