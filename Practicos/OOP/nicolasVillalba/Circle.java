@@ -14,7 +14,7 @@ public class Circle {
     }
 
     public Circle(double radius){
-        this.radius = radius;
+        setRadius(radius);
     }
 
     /**
@@ -31,13 +31,13 @@ public class Circle {
      */
     public void setRadius(double radius) throws IllegalArgumentException {
         if(radius < 0d)
-            throw new IllegalArgumentException("Negative argument not permitted");
+            throw new IllegalArgumentException("Negative argument not permitted");//ask
         this.radius = radius;
     }
 
     /**
      *
-     * @return the area of circle whit 2 signifan signatures
+     * @return the area of circle whit (BAD IDEA!)2 signifan signatures
      */
     public double getArea(){
         double area = (Math.PI * Math.pow(this.radius, 2));

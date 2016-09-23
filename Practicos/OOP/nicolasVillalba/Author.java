@@ -40,9 +40,11 @@ public class Author {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Author author = (Author) o;
+        return equals(author);
+    }
 
+    private boolean equals(Author author){
         if (!name.equals(author.name)) return false;
         if (!email.equals(author.email)) return false;
         return gender == author.gender;

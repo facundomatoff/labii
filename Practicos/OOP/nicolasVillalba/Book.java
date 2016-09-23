@@ -68,7 +68,6 @@ public class Book {
     }
 
     public String getAuthorsNames(){
-
         return Arrays.stream(authors).map(Author::getName).collect(Collectors.joining(", "));
     }
 }
