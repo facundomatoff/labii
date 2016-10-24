@@ -190,7 +190,20 @@ public class MyDate implements Comparable<MyDate> {
     }
 
     public MyDate previousDay(){
-        return this;
+        int previousDay = this.day -1;
+        int previousDayM = this.getMonth();
+        int previousDayY = this.getYear();
+        Months[] m = Months.values();
+        if(this.day == 1 && this.month.equals(Months.Jan)){
+            previousDayM = Months.Dec.getNumber();
+            previousDayY--;
+            previousDay = m[previousDayM].numberOfDays();
+        }else if(this.day == 1){
+            previousDayM--;
+            int leap = (isLeapYear(this.year) && previousDayM == Months.Feb.getNumber())? 1 : 0;
+            previousDay = m[previousDayM].numberOfDays() + leap;
+        }
+        return new MyDate(previousDayY, previousDayM, previousDay);
     }
     public MyDate previousMoth(){
         return this;

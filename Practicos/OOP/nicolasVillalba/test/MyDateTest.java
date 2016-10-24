@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 
 public class MyDateTest {
     private MyDate date1, date2, date3, date4, date5, date6, date7;
-    private MyDate date8, date9, date10, date11, date12, date13, date14, date15;
+    private MyDate date8, date9, date10, date11, date12, date13, date14, date15, date16;
     private int year1, month1, day1;
 
     @Before
@@ -49,6 +49,7 @@ public class MyDateTest {
         date13 = new MyDate(2001, 2, 29);
         date14 = new MyDate(1996, 12, 31);
         date15 = new MyDate(1996, 1, 31);
+        date16 = new MyDate(2000, 3, 1);
 
         year1 = 2013;
         month1 = 10;
@@ -129,6 +130,23 @@ public class MyDateTest {
 
     @Test
     public void previousDay() throws Exception {
+        //date5 = new MyDate(2012, 2, 26);
+        assertThat(date5.previousDay().getDay(), is(equalTo(25)));
+        //date6 = new MyDate(2012, 2, 5);
+        assertThat(date6.previousDay().getDay(), is(equalTo(4)));
+        //date2 = new MyDate(2000, 1, 1);
+        assertThat(date2.previousDay().getDay(), is(equalTo(31)));
+        assertThat(date2.previousDay().getMonth(), is(equalTo(12)));
+        assertThat(date2.previousDay().getYear(), is(equalTo(1999)));
+        //date13 = new MyDate(2001, 2, 29);
+        assertThat(date13.previousDay().getDay(), is(equalTo(28)));
+        assertThat(date13.previousDay().getMonth(), is(equalTo(2)));
+        assertThat(date13.previousDay().getYear(), is(equalTo(2001)));
+
+        //date16 = new MyDate(2000, 3, 1);
+        assertThat(date16.previousDay().getDay(), is(equalTo(29)));
+        assertThat(date16.previousDay().getMonth(), is(equalTo(2)));
+        assertThat(date16.previousDay().getYear(), is(equalTo(2000)));
 
     }
 
