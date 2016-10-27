@@ -1,7 +1,6 @@
 package org.utn.labii.oop;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * Created by nico on 9/23/16.
@@ -87,13 +86,17 @@ public class MyDate implements Comparable<MyDate> {
      * @param month
      * @param day
      */
-    public MyDate(int year, int month, int day){
+    public MyDate(int year, int month, int day) throws IllegalArgumentException {
         this.year = year;
         if(assignMonth(month) == null){
             throw new IllegalArgumentException("invalid argument");
         }
         this.month = assignMonth(month);
         this.day =  day;
+
+        /*if(!isValidDate(this.year, this.month.getNumber(), this.day)){
+            throw new IllegalArgumentException("invalid argument");
+        }*/
     }
 
     /**
@@ -206,10 +209,21 @@ public class MyDate implements Comparable<MyDate> {
         return new MyDate(previousDayY, previousDayM, previousDay);
     }
     public MyDate previousMoth(){
-        return this;
+        int previousMonth;
+        int previousMonthY = this.getYear();
+        if(!this.month.equals(Months.Jan)){
+             previousMonth = this.getMonth() - 1;
+        }else {
+             previousMonthY = this.getYear() - 1;
+             previousMonth = Months.Dec.getNumber();
+        }
+        return new MyDate(this.day, previousMonth, previousMonthY);
     }
     public MyDate previousYear(){
-        return this;
+        int prevYear = this.year - 1;
+        int leap = isLeapYear(prevYear) && this.month.equals(Months.Feb) && this.day == 28? 1 : 0;
+        int prevYearD = this.month.numberOfDays() + leap;
+        return new MyDate(prevYear, this.getMonth(), prevYearD);
     }
 
     public int getMonth() {
@@ -220,18 +234,62 @@ public class MyDate implements Comparable<MyDate> {
         return day;
     }
 
-    //metercomparaciones
+    /**
+     *
+     * @param year
+     */
+    public void setYear(int year){
+        int leap = isLeapYear(year) && this.month.equals(Months.Feb) && this.day == 28? 1 : 0;
+        if (isLeapYear(year)&& this.month.equals(Months.Feb) && this.day == 28){
+            this.day += 1;
+        }else if (!isLeapYear(year)&& this.month.equals(Months.Feb) && this.day == 29){
+            this.day -= 1;
+        }
 
-    public void setYear(int year) {
         this.year = year;
     }
-    //metercomparaciones
-    public void setMonth(int month) {
-        this.month = assignMonth(month);
+
+    /**
+     *
+     * @param month
+     * @throws IllegalArgumentException
+     */
+    public void setMonth(int month) throws IllegalArgumentException {
+        Months assignedM = assignMonth(month);
+
+        if(assignedM == null){
+            throw new IllegalArgumentException("Invalid Month Argument");
+        }
+        this.month = assignedM;
+
+        if(this.day > assignedM.numberOfDays()){
+            this.setDay(assignedM.numberOfDays());
+        }
     }
-    //metercomparaciones
+
+    /**
+     *
+     * @param day
+     */
     public void setDay(int day) {
-        this.day = day;
+        if(day >= 1 && day <= this.month.numberOfDays() + leapDay(this.month, this.year)){
+            this.day = day;
+        }else{
+            this.day = (day < 1)? 1 : this.month.numberOfDays();
+        }
+    }
+
+    /**
+     * Defines an integer 0 or 1 if
+     * @param month
+     * @param year
+     * @return
+     */
+    private static int leapDay(Months month, int year){
+        return
+                (month == Months.Jan || month == Months.Feb)
+                        ? isLeapYear(year) ? 1 : 0
+                        : 0;
     }
 
     /**
@@ -279,13 +337,9 @@ public class MyDate implements Comparable<MyDate> {
      */
     public static int getDayOfWeek(int year, int monthNumber, int day){
         Months month = assignMonth( monthNumber);
-        int leap =
-                (month == Months.Jan || month == Months.Feb)
-                        ? isLeapYear(year) ? 1 : 0
-                        : 0;
         int lastTd = yearItem(year);
         Table100sOfYears c = findCentury(year);
-        return (lastTd + month.monthCode() + day + c.centuryNumber - leap) % 7;
+        return (lastTd + month.monthCode() + day + c.centuryNumber - leapDay(month, year)) % 7;
     }
 
     /**
@@ -295,7 +349,7 @@ public class MyDate implements Comparable<MyDate> {
      * @return
      */
     private static Months assignMonth(int pos){
-        if(pos < 1 && pos > Months.ALL.getNumber()){
+        if(pos < Months.Jan.getNumber() && pos > Months.ALL.getNumber()){
             return null;
         }
         Months[] monthArr = Months.values();

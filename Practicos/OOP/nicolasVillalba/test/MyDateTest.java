@@ -62,6 +62,7 @@ public class MyDateTest {
         assertThat(MyDate.isLeapYear(1996), is(equalTo(true)));
         assertThat(MyDate.isLeapYear(2012), is(equalTo(true)));
         assertThat(MyDate.isLeapYear(2003), is(equalTo(false)));
+        assertThat(MyDate.isLeapYear(1998), is(equalTo(false)));
 
     }
 
@@ -71,6 +72,7 @@ public class MyDateTest {
         assertThat(MyDate.isValidDate(date11.getYear(), date11.getMonth(), date11.getDay()), is(equalTo(true)));
         assertThat(MyDate.isValidDate(date12.getYear(), date12.getMonth(), date12.getDay()), is(equalTo(false)));
         assertThat(MyDate.isValidDate(2001, 2, 29), is(equalTo(false)));
+        assertThat(MyDate.isValidDate(1998, 2, 29), is(equalTo(false)));
     }
 
     @Test
@@ -152,12 +154,34 @@ public class MyDateTest {
 
     @Test
     public void previousMoth() throws Exception {
-
+        //date12 = new MyDate(1997, 2, 29);
+        assertThat(date12.previousMoth().getMonth(), is(equalTo(1)));//INVALID
+        //date3 = new MyDate(2013, 9, 26);
+        assertThat(date3.previousMoth().getMonth(), is(equalTo(8)));
+        //date2 = new MyDate(2000, 1, 1);
+        assertThat(date2.previousMoth().getMonth(), is(equalTo(12)));
     }
 
     @Test
     public void previousYear() throws Exception {
+        //date9 = new MyDate(1999, 2, 28);
+        assertThat(date9.previousYear().getYear(), is(equalTo(1998)));
+        assertThat(date9.previousYear().getMonth(), is(equalTo(2)));
+        assertThat(date9.previousYear().getDay(), is(equalTo(28)));
 
+        assertThat(
+                new MyDate(2012, 2, 29).previousYear().getDay(),
+                is(equalTo(28))
+        );
+
+        assertThat(
+                new MyDate(2016, 2, 29).previousYear().getDay(),
+                is(equalTo(28))
+        );
+        assertThat(
+                new MyDate(2016, 12, 31).previousYear().getDay(),
+                is(equalTo(31))
+        );
     }
 
     @Test
@@ -175,17 +199,39 @@ public class MyDateTest {
     //--------------------------------------------------
     @Test
     public void setYear() throws Exception {
-
+        MyDate d = new MyDate(2016, 2, 29);
+        MyDate d2 = new MyDate(2000, 2, 28);
+        MyDate d3 = new MyDate(2000, 2, 29);
+        d.setYear(2015);
+        d2.setYear(1999);
+        d3.setYear(2001);
+        assertThat(d.getDay(), is(equalTo(28)));
+        assertThat(d2.getDay(), is(equalTo(28)));
+        assertThat(d3.getDay(), is(equalTo(28)));
     }
 
     @Test
     public void setMonth() throws Exception {
-
+        MyDate d = new MyDate(2015, 1, 29);
+        MyDate d2 = new MyDate(2000, 2, 28);
+        MyDate d3 = new MyDate(2000, 5, 31);
+        d.setMonth(2);
+        d2.setMonth(3);
+        d3.setMonth(6);
+        assertThat(d.getDay(), is(equalTo(28)));
+        assertThat(d2.getDay(), is(equalTo(28)));
+        assertThat(d3.getDay(), is(equalTo(30)));
     }
 
     @Test
     public void setDay() throws Exception {
-
+        MyDate d = new MyDate(2015, 1, 29);
+        d.setDay(0);
+        assertThat(d.getDay(), is(equalTo(1)));
+        d.setDay(30);
+        assertThat(d.getDay(), is(equalTo(30)));
+        d.setDay(43);
+        assertThat(d.getDay(), is(equalTo(31)));
     }
     //-------------------------------------------------
     @Test
