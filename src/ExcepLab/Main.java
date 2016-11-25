@@ -10,11 +10,11 @@ import java.util.Scanner;
  */
 public class Main extends RuntimeException {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AtrapaError {
 
-        int num = 10;
-        int num2 = 0;
-
+        //int num = 10;
+        //int num2 = 0;
+/*
         try {
 
             System.out.println(num/num2);
@@ -26,13 +26,21 @@ public class Main extends RuntimeException {
             throw e;
 
         }
+*/
 
+  //      Scanner sc = new Scanner(System.in);
 
-        Scanner sc = new Scanner(System.in);
+        try {
 
-        MyTime tiempo = new MyTime(sc.nextInt(), sc.nextInt());
+            MyTime tiempo = new MyTime(1, 10);
+            System.out.println(tiempo);
 
-        System.out.println(tiempo);
+            tiempo.nextHora();
+            System.out.println(tiempo);
 
+        }catch (AtrapaError e){
+
+            System.out.println(e.getMessage());
+        }
     }
 }

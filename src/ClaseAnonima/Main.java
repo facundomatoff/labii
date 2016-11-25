@@ -30,6 +30,13 @@ public class Main {
         mapa.put("perro","perro");
 
         System.out.println(mapa);
+
+        Movimiento mover =new Movimiento() {
+            @Override
+            public void Mensaje() {
+                //System.out.println("4545545");
+            }
+        };
     }
 
 }
